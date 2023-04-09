@@ -17,6 +17,8 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "status")
+    private String status;
     @Column(name = "transaction_type")
     private String transactionType;
     @Column(name = "created_date")
@@ -36,12 +38,13 @@ public class Transaction {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    public Transaction(double amount,String description, User user, Wallet wallet, String transactionType) {
+    public Transaction(double amount,String description, User user, Wallet wallet, String transactionType, String status,Date createdDate) {
         this.user = user;
+        this.status = status;
         this.amount = amount;
         this.description = description;
         this.transactionType = transactionType;
         this.wallet = wallet;
-        this.createdDate = new Date();
+        this.createdDate = createdDate;
     }
 }

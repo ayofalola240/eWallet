@@ -1,17 +1,15 @@
 package com.fundall.eWallet.dto.transaction;
 
 import com.fundall.eWallet.model.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class CreateTransactionDto {
-    private Integer id;
     private Double amount;
-    private User user;
+    private String transactionType;
     private String description;
-    private Date updateDate;
 }

@@ -18,7 +18,7 @@ public class Transaction {
     private Integer id;
 
     @Column(name = "transaction_type")
-    private TransactionType transactionType;
+    private String transactionType;
     @Column(name = "created_date")
     private Date createdDate;
 
@@ -36,7 +36,7 @@ public class Transaction {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    public Transaction(double amount,String description, User user, Wallet wallet, TransactionType transactionType) {
+    public Transaction(double amount,String description, User user, Wallet wallet, String transactionType) {
         this.user = user;
         this.amount = amount;
         this.description = description;

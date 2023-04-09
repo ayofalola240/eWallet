@@ -1,5 +1,6 @@
 package com.fundall.eWallet.controllers;
 
+import com.fundall.eWallet.dto.wallet.FundWalletDto;
 import com.fundall.eWallet.dto.wallet.WalletDto;
 import com.fundall.eWallet.execptions.AuthenticationFailException;
 import com.fundall.eWallet.model.User;
@@ -38,12 +39,12 @@ public class WalletController {
     }
 
     @PostMapping("fund")
-    public ResponseEntity<WalletDto> fundWallet(@RequestParam("token") String token, @RequestBody Double amount)
+    public ResponseEntity<WalletDto> fundWallet(@RequestParam("token") String token, @RequestBody FundWalletDto request)
             throws AuthenticationFailException{
         authenticationService.authenticate(token);
         User user = authenticationService.getUser(token);
 
-        WalletDto walletDto = walletService.fundWallet(user, amount);
+        WalletDto walletDto = walletService.fundWallet(user, request.getAmount());
         return new ResponseEntity<>(walletDto, HttpStatus.OK);
     }
 

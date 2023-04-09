@@ -3,6 +3,7 @@ package com.fundall.eWallet.controllers;
 import com.fundall.eWallet.dto.wallet.FundWalletDto;
 import com.fundall.eWallet.dto.wallet.WalletDto;
 import com.fundall.eWallet.execptions.AuthenticationFailException;
+import com.fundall.eWallet.execptions.CustomException;
 import com.fundall.eWallet.model.User;
 import com.fundall.eWallet.services.AuthenticationService;
 import com.fundall.eWallet.services.WalletService;
@@ -30,7 +31,7 @@ public class WalletController {
 
     @GetMapping("balance")
     public ResponseEntity<WalletDto> showWallet(@RequestParam("token") String token)
-            throws AuthenticationFailException{
+            throws AuthenticationFailException, CustomException{
         authenticationService.authenticate(token);
         User user = authenticationService.getUser(token);
 
@@ -40,7 +41,7 @@ public class WalletController {
 
     @PostMapping("fund")
     public ResponseEntity<WalletDto> fundWallet(@RequestParam("token") String token, @RequestBody FundWalletDto request)
-            throws AuthenticationFailException{
+            throws AuthenticationFailException, CustomException {
         authenticationService.authenticate(token);
         User user = authenticationService.getUser(token);
 

@@ -28,7 +28,7 @@ public class WalletService {
         try{
             Wallet wallet = walletRepository.findWalletByUser(user);
             return new WalletDto(wallet);
-        }catch (Exception e){ System.out.println("hashing password failed {}" + e.getMessage());
+        }catch (Exception e){ System.out.println("Something went wrong" + e.getMessage());
             throw new CustomException(e.getMessage());
         }
 
@@ -48,11 +48,11 @@ public class WalletService {
             transaction.setAmount(amount);
             transaction.setWallet(wallet);
             transaction.setUser(user);
-            transaction.setDescription("Wallet credit successfull!");
+            transaction.setDescription("Wallet credit successfully!");
             transactionRepository.save(transaction);
             return new WalletDto(wallet);
         }catch (Exception e){ e.printStackTrace();
-            System.out.println("hashing password failed {}" + e.getMessage());
+            System.out.println("Something went wrong" + e.getMessage());
             throw new CustomException(e.getMessage());
         }
     }

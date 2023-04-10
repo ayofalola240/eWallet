@@ -1,6 +1,7 @@
 package com.fundall.eWallet.controllers;
 
 import com.fundall.eWallet.dto.transaction.CreateTransactionDto;
+import com.fundall.eWallet.dto.transaction.ListTransactionsDto;
 import com.fundall.eWallet.dto.transaction.TransactionDto;
 import com.fundall.eWallet.dto.wallet.FundWalletDto;
 import com.fundall.eWallet.dto.wallet.WalletDto;
@@ -15,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/payment/")
+@RequestMapping("payment")
 public class PaymentController {
     private final PaymentService PaymentService;
     private final AuthenticationService authenticationService;
@@ -24,7 +25,7 @@ public class PaymentController {
         PaymentService = paymentService;
         this.authenticationService = authenticationService;
     }
-    @PostMapping("cards")
+    @PostMapping("/cards")
     public ResponseEntity<TransactionDto> BillPayment(@RequestParam("token") String token, @RequestBody CreateTransactionDto request)
             throws AuthenticationFailException, CustomException, InsufficientBalanceException {
         authenticationService.authenticate(token);
@@ -32,5 +33,15 @@ public class PaymentController {
 
         TransactionDto transactionDto = PaymentService.billPayment(user, request);
         return new ResponseEntity<>(transactionDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<ListTransactionsDto> getCartItems(@RequestParam("token") String token)
+            throws AuthenticationFailException {
+        authenticationService.authenticate(token);
+        User user = authenticationService.getUser(token);
+
+        ListTransactionsDto listTransactionsDto = PaymentService.listTransactions(user);
+        return new ResponseEntity<>(listTransactionsDto, HttpStatus.OK);
     }
 }

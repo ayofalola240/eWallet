@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RestController
-@RequestMapping("/wallet/")
+@RequestMapping("wallet")
 public class WalletController {
 
     private static final Logger logger = LoggerFactory.getLogger(WalletController.class);
@@ -29,7 +29,7 @@ public class WalletController {
         this.authenticationService = authenticationService;
     }
 
-    @GetMapping("balance")
+    @GetMapping("/balance")
     public ResponseEntity<WalletDto> showWallet(@RequestParam("token") String token)
             throws AuthenticationFailException, CustomException{
         authenticationService.authenticate(token);
@@ -39,7 +39,7 @@ public class WalletController {
         return new ResponseEntity<>(walletDto, HttpStatus.OK);
     }
 
-    @PostMapping("fund")
+    @PostMapping("/fund")
     public ResponseEntity<WalletDto> fundWallet(@RequestParam("token") String token, @RequestBody FundWalletDto request)
             throws AuthenticationFailException, CustomException {
         authenticationService.authenticate(token);
